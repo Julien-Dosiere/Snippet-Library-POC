@@ -1,4 +1,4 @@
 # Snippet-Library-POC
-Snippet Library (temporary name) is an app designed to easily obtain, store, search and reuse all your code snippets, no matter which programming language, which IDE or which terminal you use.
+Snippet Library (temporary name) is an app designed to easily obtain, store, search and reuse all your code snippets, no matter which programming language, which IDE or which device you use.
 
-This proof of concept version, build with ASP/ .NET5, explores the feasability of core features required fot he final app.
+This proof of concept version, build with ASP/ .NET5, explores the feasability of future core features that sould be present the final app.
