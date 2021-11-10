@@ -32,6 +32,7 @@ namespace MVC_App.Models
         public DataUser User { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
+        // public ICollection<SnippetTag> SnippetTags { get; set; }
     }
 
 

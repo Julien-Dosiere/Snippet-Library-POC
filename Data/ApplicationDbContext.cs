@@ -17,5 +17,7 @@ namespace MVC_App.Data
         public DbSet<Tag> Tags{ get; set; }
         public DbSet<Snippet> Snippets{ get; set; }
 
+        // public DbSet<SnippetTag> SnippetTag { get; set; }
+
     }
 }

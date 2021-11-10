@@ -13,5 +13,7 @@ namespace MVC_App.Models
         public DataUser User { get; set; }
 
         public ICollection<Snippet> Snippets { get; set; }
+
+
     }
 }

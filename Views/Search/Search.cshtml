@@ -25,4 +25,65 @@
         <label asp-for="Type" class="control-label">Search in</label>
         <select asp-for="Type" class="form-control" asp-items="ViewBag.searchTypes"></select>
     </div>
+    <div class="form-group">
+        <label class="control-label">Tags</label>
+
+        <ul style="list-style-type: none;">
+
+            @foreach (var tag in ViewBag.tags)
+            {
+                <li>
+
+                    <label for="@tag.Id">
+                        <input type="checkbox" name="tag-@tag.Id" id="@tag.Id" checked>
+                        @tag.Name
+                    </label>
+                </li>
+            }
+
+        </ul>
+
+    </div>
 </form>
+
+
+@if (ViewBag.snippets != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                   Description
+                </th>
+                <th>
+                    Language
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var snippet in ViewBag.snippets)
+            {
+                <tr>
+                    <td>
+                        @snippet.Title
+                    </td>
+                    <td>
+                        @snippet.Description
+                    </td>
+                    <td>
+                        @snippet.Lang
+                    </td>
+                    <td>
+                        <a asp-controller="snippets" asp-action="Details" asp-route-id="@snippet.Id">Details</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
