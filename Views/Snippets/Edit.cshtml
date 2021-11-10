@@ -36,8 +36,43 @@
             </div>
             <div class="form-group">
                 <label asp-for="Lang" class="control-label"></label>
-                <input asp-for="Lang" class="form-control" />
+                <select asp-for="Lang" class="form-control" asp-items="ViewBag.langs"></select>
                 <span asp-validation-for="Lang" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label">Tags:</label>
+
+
+
+            </div>
+
+            <div class="form-group">
+                <ul style="list-style-type: none;">
+
+                    @foreach (var tag in ViewBag.tags)
+                    {
+                        <li>
+
+                            <label for="@tag.Id">
+                                @if (Model.Tags.Contains(tag))
+                                {
+                                    <input type="checkbox" name="tag-@tag.Id" id="@tag.Id" checked>
+                                }
+                                else
+                                    {
+                                                <input type="checkbox" name="tag-@tag.Id" id="@tag.Id">
+                                    }
+
+                                @tag.Name
+
+                            </label>
+                        </li>
+                    }
+
+                </ul>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -111,11 +111,14 @@ namespace MVC_App.Controllers
                 return NotFound();
             }
 
-            var snippet = await _context.Snippets.FindAsync(id);
+
+            var snippet = await _context.Snippets.Include(snippet => snippet.Tags).FirstOrDefaultAsync(snippet => snippet.Id == id);
             if (snippet == null)
             {
                 return NotFound();
             }
+            ViewData["Langs"] = new SelectList(Snippet.Langs);
+            ViewBag.tags = new List<Tag>(_context.Tags);
             return View(snippet);
         }
 
@@ -133,10 +136,37 @@ namespace MVC_App.Controllers
 
             if (ModelState.IsValid)
             {
+
+                var form = HttpContext.Request.Form;
+
+                List<Tag> updatedTagsList = new List<Tag>();
+                foreach (var input in form)
+                {
+                    
+                    if (input.Key.Contains("tag"))
+                    {
+                        int tagId = Int32.Parse(input.Key.Substring(4));
+                        Tag tag = _context.Tags.FirstOrDefault(t => t.Id == tagId);
+                        updatedTagsList.Add(tag);
+
+                        //IEnumerable<Tag> allTags = _context.Tags.ToList();
+                        //List<Tag> formerTags = allTags.Where(t => t.Snippets.Any(s => s.Id == snippet.Id)).ToList();
+                        //Tag tag = allTags.FirstOrDefault(t => t.Id == tagId);
+                        //if(!formerTags.Any(t => t.Id == tag.Id))
+                        //    snippet.Tags.Add(tag);
+                    }
+                }
                 try
                 {
+
                     _context.Update(snippet);
                     await _context.SaveChangesAsync();
+                    Snippet updatedSnippet = await _context.Snippets.Include(s => s.Tags).FirstOrDefaultAsync(s => s.Id == snippet.Id);
+                    updatedSnippet.Tags.Clear();
+                    updatedSnippet.Tags = updatedTagsList;
+                    _context.Update(snippet);
+                    await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
