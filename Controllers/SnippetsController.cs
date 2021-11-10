@@ -47,12 +47,7 @@ namespace MVC_App.Controllers
         // GET: Snippets/Create
         public IActionResult Create()
         {
-            var langs = new List<string>();
-            foreach(Langs lang in Enum.GetValues(typeof(Langs)))
-            {
-                langs.Add(lang.ToString());
-            }
-            ViewData["Langs"] = new SelectList(langs);
+            ViewData["Langs"] = new SelectList(Snippet.Langs);
             ViewBag.tags = new List<Tag>(_context.Tags);
             return View();
         }
@@ -105,7 +100,7 @@ namespace MVC_App.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(snippet);
+            return View();
         }
 
         // GET: Snippets/Edit/5
@@ -192,5 +187,7 @@ namespace MVC_App.Controllers
         {
             return _context.Snippets.Any(e => e.Id == id);
         }
+
+
     }
 }

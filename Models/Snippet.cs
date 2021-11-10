@@ -8,6 +8,12 @@ namespace MVC_App.Models
 {
     public class Snippet
     {
+        
+        private static IList<string> langs = Array.AsReadOnly(new string[]{
+            "C#", "JS", "Java", "Python"
+        });
+        public static IList<string> Langs { get; } = langs;
+
         public int Id { get; set; }
         
         [MaxLength(80), Required]
@@ -19,7 +25,7 @@ namespace MVC_App.Models
         [Required]
         public string Content { get; set; }
 
-        [EnumDataType(typeof(Langs))]
+        [Required]
         public string Lang { get; set; }
         
         public string UserId { get; set; }
@@ -28,13 +34,5 @@ namespace MVC_App.Models
         public ICollection<Tag> Tags { get; set; }
     }
 
-    public enum Langs
-    {
-        CS,
-        JS,
-        TS,
-        Python,
-        Java,
-        PHP,
-    }
+
 }
